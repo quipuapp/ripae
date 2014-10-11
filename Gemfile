@@ -20,6 +20,7 @@ gem 'sidetiq'
 
 # API
 gem 'omniauth-bancsabadell'
+gem 'bancsabadell-api', require: 'banc_sabadell', path: '../bancsabadell-api'
 gem 'rest-client'
 
 #Tools

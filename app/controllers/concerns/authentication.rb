@@ -3,6 +3,7 @@ module Authentication
 
   included do
     before_filter :check_token_expiration
+    before_filter :set_api_key
   end
 
   protected
@@ -34,5 +35,11 @@ module Authentication
 
     session[:token] = refresh_hash['access_token']
     session[:expires_at] = Time.now.to_i + refresh_hash['expires_in'].to_i
+  end
+
+  def set_api_key
+    if access_token = session[:token]
+      BancSabadell.api_key = access_token
+    end
   end
 end
