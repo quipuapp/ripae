@@ -7,7 +7,6 @@ task :sync_with_api, [:token] => [:environment] do |t, args|
   Rake::Task['clean'].invoke
 
   # Import bank entries
-  p args
   BancSabadell.api_key = args.token
   BancSabadell::Product.all.each do |product|
     if product.product == 'CC'
