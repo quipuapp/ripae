@@ -40,10 +40,10 @@ class BankEntriesController < ApplicationController
   end
 
   def get_bank_entries
-    return @bank_entries = BankEntry.all.order("bank_date DESC") if params.blank? || !params[:filter]
-    @bank_entries = BankEntry.all.order("bank_date DESC") if params[:filter] == "all"
-    @bank_entries = BankEntry.inbounds.order("bank_date DESC") if params[:filter] == "incomes"
-    @bank_entries = BankEntry.outbounds.order("bank_date DESC") if params[:filter] == "outcomes"
+    return @bank_entries = BankEntry.all.order("bank_date DESC, id DESC") if params.blank? || !params[:filter]
+    @bank_entries = BankEntry.all.order("bank_date DESC, id DESC") if params[:filter] == "all"
+    @bank_entries = BankEntry.inbounds.order("bank_date DESC, id DESC") if params[:filter] == "incomes"
+    @bank_entries = BankEntry.outbounds.order("bank_date DESC, id DESC") if params[:filter] == "outcomes"
   end
 
   def paginate_bank_entries!
@@ -62,5 +62,6 @@ class BankEntriesController < ApplicationController
   def get_first_bank_entry_data(bank_entry)
     return @proposed_invoices = Invoice.where(total_amount: bank_entry.amount).order("issue_date DESC") if bank_entry.unmatched?
     @current_matched_invoice = Invoice.find(bank_entry.invoice_id)
+    @actual_bank_entry = bank_entry
   end
 end

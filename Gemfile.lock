@@ -226,8 +226,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bancsabadell-api!
   autoprefixer-rails
+  bancsabadell-api!
   bootstrap-datepicker-rails
   bootstrap-sass
   byebug

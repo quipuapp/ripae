@@ -1,43 +1,303 @@
-.filters
-  .way
-    .all
-      = link_to("all", bank_entries_path(filter: "all"))
-    .incomes
-      = link_to("incomes", bank_entries_path(filter: "incomes"))
-    .outcomes
-      = link_to("outcomes", bank_entries_path(filter: "outcomes"))
-.list
-  .bank_left
-    - @bank_entries.each do |bank_entry|
-      - klass = "read" if bank_entry.read
-      - klass = "selected" if bank_entry == @actual_bank_entry
-      = link_to("#{bank_entry.bank_date} #{bank_entry.concept} #{bank_entry.amount} #{bank_entry.account_amount}",
-        bank_entries_path(id: bank_entry.id, amount: bank_entry.amount, date: bank_entry.bank_date, filter: params[:filter], page: params[:page]), { class: klass })
-      br
-
-    /= paginate @bank_entries
-
-  .bank_right
-    - unless @proposed_invoices.nil?
-      - @proposed_invoices.each do |invoice|
-        .left_pane
-          span = invoice.issue_date
-          span = invoice.concept
-          span = invoice.contact_name
-          span = invoice.unitary_amount
-          span = invoice.quantity
-          span = invoice.vat
-          span = invoice.total_amount
-        .right_pane
-          = link_to bank_entries_path(amount: params[:amount], date: params[:date], id: params[:id], matched_id: invoice.id, filter: params[:filter], page: params[:page] ) do
-            = "match"
-        br
-    - unless @current_matched_invoice.nil?
-      .left_pane
-        span = @current_matched_invoice.issue_date
-        span = @current_matched_invoice.concept
-        span = @current_matched_invoice.contact_name
-        span = @current_matched_invoice.unitary_amount
-        span = @current_matched_invoice.quantity
-        span = @current_matched_invoice.vat
-        span = @current_matched_invoice.total_amount
+.container-fluid.main-content-container.h100
+  .row.top-menu-section
+    .col-md-12
+      nav
+        a.logo href="#" 
+          img src="imgs/logo-rq.svg" 
+        a.top-tab.active
+          | Banco
+        a.top-tab
+          | Facturas
+  .row.dash-section
+    .dropdown.ccdropdown
+      button#dropdownMenu1.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button" 
+        | Cuenta principal
+        span.caret
+      ul.dropdown-menu aria-labelledby="dropdownMenu1" role="menu" 
+        li role="presentation" 
+          a href="#" role="menuitem" tabindex="-1"  Targeta de crédito
+        li role="presentation" 
+          a href="#" role="menuitem" tabindex="-1"  E-commerce
+        li role="presentation" 
+          a href="#" role="menuitem" tabindex="-1"  Targeta de crédito
+        li.divider role="presentation" 
+        li role="presentation" 
+          a href="#" role="menuitem" tabindex="-1"  + Crear cuenta
+    span.total Saldo total: 5420,40 €
+  .plus-minus-filters-section
+    .plus-minus-filters-container
+      .col-md-8
+        ul.list-inline.plus-minus-filters
+          li.plus-minus-all
+            a.active href="#" 
+              | Todo
+          li.filter-plus
+            a href="#" 
+              | Ingresos
+          li.filter-minus
+            a href="#" 
+              | Gastos
+          li.undone
+            a href="#" 
+              | Pendientes de conciliar
+      .col-md-4.text-right
+        form.navbar-form.navbar-right role="search" 
+          .form-group
+            input.form-control.search-filter placeholder="Buscar" type="text" 
+  .row.h100.main-content
+    .col-md-4.left-sidebar.h100
+      ul.list-group
+        li.list-group-item.move-item.move-plus.move-done
+          .row.right
+            .col-md-9
+              a href="#" 
+                small
+                  | 11/10/2014
+                p.w600
+                  | Web design
+                p
+                  | + 3600 €
+            .col-md-3
+              small.text-right.move-total 2100 €
+              .move-options
+                .move-flag.on-off
+                .move-note
+            li.list-group-item.move-item.move-open.move-plus
+              .row.right
+                .col-md-9
+                  a href="#" 
+                    small
+                      | 11/10/2014
+                    p.w600
+                      | Web design
+                    p
+                      | + 2400 €
+                .col-md-3
+                  small.text-right.move-total 2100 €
+                  .move-options
+                    .move-flag.on-off
+                    .move-note
+            li.list-group-item.move-item.move-minus
+              .row.right
+                .col-md-9
+                  a href="#" 
+                    small
+                      | 04/10/2014
+                    p.w600
+                      | Gasolina
+                    p
+                      | \- 60 €
+                .col-md-3
+                  small.text-right.move-total 2100 €
+                  .move-options
+                    .move-flag.on-off
+                    .move-note
+            li.list-group-item.move-item.move-plus.move-done
+              .row.right
+                .col-md-9
+                  a href="#" 
+                    small
+                      | 0110/2014
+                    p.w600
+                      | Desarrollo app
+                    p
+                      | + 500 €
+                .col-md-3
+                  small.text-right.move-total 2100 €
+                  .move-options
+                    .move-flag.on-off
+                    .move-note
+            li.list-group-item.move-item.move-plus.move-opened.move-done
+              .row.right
+                .col-md-9
+                  a href="#" 
+                    small
+                      | 23/09/2014
+                    p.w600
+                      | Transferencia PayPal
+                    p
+                      | + 350 €
+                .col-md-3
+                  small.text-right.move-total 2100 €
+                  .move-options
+                    .move-flag.on-off
+                    .move-note
+            li.list-group-item.move-item.move-minus.move-opened
+              .row.right
+                .col-md-9
+                  a href="#" 
+                    small
+                      | 16/09/2014
+                    p.w600
+                      | Cuenta Quipu anual
+                    p
+                      | \- 200 €
+                .col-md-3
+                  small.text-right.move-total 2100 €
+                  .move-options
+                    .move-flag.on-off
+                    .move-note
+            li.list-group-item.move-item.move-plus
+              .row.right
+                .col-md-9
+                  a href="#" 
+                    small
+                      | 11/10/2014
+                    p.w600
+                      | Web design
+                    p
+                      | + 3600 €
+                .col-md-3
+                  small.text-right.move-total 2100 €
+                  .move-options
+                    .move-flag.on-off
+                    .move-note
+            li.list-group-item.move-item.move-plus
+              .row.right
+                .col-md-9
+                  a href="#" 
+                    small
+                      | 11/10/2014
+                    p.w600
+                      | Web design
+                    p
+                      | + 2400 €
+                .col-md-3
+                  small.text-right.move-total 2100 €
+                  .move-options
+                    .move-flag.on-off
+                    .move-note
+            li.list-group-item.move-item.move-minus
+              .row.right
+                .col-md-9
+                  a href="#" 
+                    small
+                      | 04/10/2014
+                    p.w600
+                      | Gasolina
+                    p
+                      | \- 60 €
+                .col-md-3
+                  small.text-right.move-total 2100 €
+                  .move-options
+                    .move-flag.on-off
+                    .move-note
+            li.list-group-item.move-item.move-plus
+              .row.right
+                .col-md-9
+                  a href="#" 
+                    small
+                      | 0110/2014
+                    p.w600
+                      | Desarrollo app
+                    p
+                      | + 500 €
+                .col-md-3
+                  small.text-right.move-total 2100 €
+                  .move-options
+                    .move-flag.on-off
+                    .move-note
+            li.list-group-item.move-item.move-plus.move-opened
+              .row.right
+                .col-md-9
+                  a href="#" 
+                    small
+                      | 23/09/2014
+                    p.w600
+                      | Transferencia PayPal
+                    p
+                      | + 350 €
+                .col-md-3
+                  small.text-right.move-total 2100 €
+                  .move-options
+                    .move-flag.on-off
+                    .move-note
+            li.list-group-item.move-item.move-minus.move-opened
+              .row.right
+                .col-md-9
+                  a href="#" 
+                    small
+                      | 16/09/2014
+                    p.w600
+                      | Cuenta Quipu anual
+                    p
+                      | \- 200 €
+                .col-md-3
+                  small.text-right.move-total 2100 €
+                  .move-options
+                    .move-flag.on-off
+                    .move-note
+        .main.h100.ofy-scroll
+          .col-md-4.h100.move-info
+            h3
+              | Ingreso
+            .move-detail-list
+              .move-detail
+                span.detail-title Fecha:
+                p 11/10/2014
+              .move-detail
+                span.detail-title Concepto:
+                p Web design
+              .move-detail
+                span.detail-title Importe:
+                p + 2400 €
+          .col-md-1.mid-border
+          .col-md-1
+          .col-md-6.move-matches
+            h3
+              | Tus facturas emitidas
+            .move-match-options
+              a.btn.btn-default
+                | + Crear factura
+              form.navbar-right role="search" 
+                .form-group
+                  input.form-control.invoice-filter placeholder="Buscar" type="text" 
+            .move-matches-list
+              .move-match-item
+                .move-match
+                  .col-md-6
+                    span.match-title Cliente:
+                    p Roger Dobaño
+                    span.match-title Concepto:
+                    p Web design
+                  .col-md-6
+                    span.match-title Fecha:
+                    p Roger Dobaño
+                    span.match-title Cantidad:
+                    p 2400€
+              .move-match-item
+                .move-match
+                  .col-md-6
+                    span.match-title Cliente:
+                    p Roger Dobaño
+                    span.match-title Concepto:
+                    p Web design
+                  .col-md-6
+                    span.match-title Fecha:
+                    p Roger Dobaño
+                    span.match-title Cantidad:
+                    p 2400€
+              .move-match-item
+                .move-match
+                  .col-md-6
+                    span.match-title Cliente:
+                    p Roger Dobaño
+                    span.match-title Concepto:
+                    p Web design
+                  .col-md-6
+                    span.match-title Fecha:
+                    p Roger Dobaño
+                    span.match-title Cantidad:
+                    p 2400€
+              .move-match-item
+                .move-match
+                  .col-md-6
+                    span.match-title Cliente:
+                    p Roger Dobaño
+                    span.match-title Concepto:
+                    p Web design
+                  .col-md-6
+                    span.match-title Fecha:
+                    p Roger Dobaño
+                    span.match-title Cantidad:
+                    p 2400€

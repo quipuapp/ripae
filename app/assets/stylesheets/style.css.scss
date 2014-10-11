@@ -1,0 +1,414 @@
+.fixed {
+  position: fixed;
+}
+
+.left-sidebar {
+  background-color: #ddd;
+  overflow-y: auto;
+  display: block;
+  top: 0;
+  bottom: 0;
+  margin: 0 0 0 -15px;
+  padding-right: 0;
+  padding-top: 15px;
+  overflow-y: scroll;
+  z-index: 0;
+}
+
+
+
+html, body{
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #eee;
+}
+
+.move-item {
+  background-color: #f5f5f5;
+  border: 0;
+  border-right: 0;
+  border-top: 0;
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 0;
+  margin-left: 30px;
+  padding-left: 50px;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;  
+  border-radius: 0 !important;
+}
+
+.move-open {
+  background-color: white;
+  margin-left: 15px;
+  padding-left: 65px;
+  margin-bottom: 0;
+  border: 0;
+  background-position: 25px center !important;
+}
+
+
+
+.move-plus {
+  background-image: url('imgs/plus.png');
+  background-position: 10px center;
+  background-repeat: no-repeat;
+}
+
+.move-minus {
+  background-image: url('imgs/minus.png');
+  background-position: 10px center;
+  background-repeat: no-repeat;
+}
+
+.move-opened {
+  background-color: #ddd;
+  color: #888;
+  border-color: #d2d2d2;
+}
+
+.move-item:hover {
+  background-color: white;
+  margin-left: 20px;
+}
+
+.move-open:hover {
+  margin-left: 15px;
+  padding-left: 65px;
+}
+
+.move-open:hover a {
+  cursor: default;
+}
+
+.move-item a {
+  color: inherit;
+}
+
+.move-item a:hover {
+  text-decoration: none;
+}
+
+.move-note {
+  float: left;
+  height: 22px;
+  width: 22px;
+  background-image: url(imgs/note.png);
+  margin-left: 10px;
+}
+
+.move-flag {
+  float: left;
+  height: 22px;
+  width: 11px;
+  background-image: url(imgs/flag.png);
+  background-position: 0px 22px;
+  cursor: pointer;
+}
+
+.move-options {
+  float: right;
+  margin-top: 20px;
+  opacity: 0.5;
+}
+
+.move-total {
+  float: right;
+}
+
+.move-flag.on-off.on {
+  background-position: 0px 0px;
+}
+
+.move-options:hover {
+  opacity: 1;
+}
+
+.w600 {
+  font-weight: 600;
+}
+
+
+
+.filters-section {
+  background-color: #eee;
+}
+
+.main-content-container {
+  background-color: white;
+  overflow: hidden;
+  padding-bottom: 150px;
+}
+
+.h100 {
+  height: 100%;
+}
+
+.ofy-scroll {
+  overflow-y: scroll;
+}
+
+.h90 {
+  height: 90%;
+}
+
+.plus-minus-filters-section {
+  float: left;
+  width: 100%;
+  height: 50px;
+  z-index: 60;
+  position: relative;
+}
+
+.plus-minus-filters-container {
+  background-color: #eee;
+  margin: 0 -15px;
+  height: 100%;
+  -webkit-box-shadow: 0px 5px 15px -10px black;
+  box-shadow: 0px 5px 15px -10px black;
+}
+
+
+
+.list-group {
+  border-radius: 0px;
+}
+
+.dash-section {
+  background-color: #f5f5f5;
+  height: 30px;
+  padding: 0 20px 0 15px;
+  font-weight: 700;
+  letter-spacing: 0.2px
+}
+
+.top-menu-section {
+  background-color: white;
+  height: 70px;
+}
+
+.search-filter {
+  border-radius: 15px;
+  height: 30px;
+  margin-top: 3px;
+  background-color: #f5f5f5;
+}
+
+.plus-minus-filters a {
+  color: inherit;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 4px 14px 4px 32px;
+  float: left;
+  border-radius: 20px;
+  background: white;
+  margin-top: 14px;
+  background-size: 10px;
+}
+
+.plus-minus-all a {
+  padding-left: 14px;
+}
+.plus-minus-all a.active {
+  background: #555;
+  color: white;
+}
+
+.filter-plus a {
+  background-image: url(imgs/plus.png);
+  background-position: 10px center;
+  background-repeat: no-repeat;
+}
+.filter-plus a:hover,
+.filter-plus a.active
+{
+  background-color: #39B54A;
+  background-image: url(imgs/plus-w.png);
+  color: white;
+}
+.filter-minus a:hover,
+.filter-minus a.active
+{
+  background-color: #D20000;
+  background-image: url(imgs/minus-w.png);
+  color: white;
+}
+
+
+.filter-minus a {
+  background-image: url(imgs/minus.png);
+  background-position: 10px center;
+  background-repeat: no-repeat;
+}
+
+.plus-minus-filters li a:hover {
+  text-decoration: none;
+}
+
+.logo img{
+  height: 50px;
+  margin-top: 8px;
+}
+
+.top-tab {
+  font-size: 21px;
+  border-bottom: 4px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  height: 71px;
+  line-height: 71px;
+  padding: 0 30px;
+  float: left;
+  color: inherit;
+  margin-right: -1px;
+}
+
+.logo {
+  float: left;
+  margin-right: 20px;
+}
+
+.top-tab.active {
+  border-color: #5FB500;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
+.main {
+  padding: 15px 30px;
+}
+
+.move-info {
+  padding: 15px 0 0 0;
+}
+
+
+
+.move-info h3 {
+  margin: 0 0 30px 0;
+}
+
+
+.move-matches {
+  padding: 15px 0 0 0;
+}
+
+.move-detail {
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.detail-title {
+  font-weight: 400;
+}
+
+.move-matches h3 {
+  margin: 0 0 30px 0;
+}
+
+.move-detail-list {
+  box-shadow: 0 2px 15px -3px rgba(0,0,0, 0.3);
+  height: auto;
+  border-radius: 0 0 4px 4px;
+  padding: 15px 20px 10px 20px;
+}
+
+.btn {
+  border-radius: 0;
+  background: #5FB500;
+  border: 0;
+  color: white;
+  font-weight: 500;
+  border-radius: 30px;
+  padding: 5px 14px  
+}
+
+.mid-border {
+  height: 100%;
+  border-right: 1px solid #ddd;
+}
+
+.invoice-filter {
+  margin: 0;
+  border-radius: 30px;
+  height: 30px;
+  width: 150px;
+}
+
+.move-match-item {
+  box-shadow: 0 2px 15px -3px rgba(0,0,0, 0.3);
+  padding: 15px 5px 10px 5px;
+  margin-bottom: 10px;
+  float: left;
+  width: 100%;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+.move-match-options {
+  margin-bottom: 20px
+}
+
+.move-match {
+  float: left;
+  width: 100%;
+  font-weight: 600;
+}
+
+.match-title {
+  font-weight: 400;
+}
+
+.move-match-item:hover {
+  background-color: #DFEFCB;
+}
+
+.move-item.move-done .w600{
+  background-image: url(imgs/ok.png);
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+
+.undone {
+  background: none;
+}
+.undone a {
+  padding-left: 14px;
+}
+
+.cc {
+  margin-right: 30px;
+}
+
+
+
+
+
+.total {
+  float: right;
+  padding-top: 5px;
+}
+
+.ccdropdown {
+  float: left;
+  margin: 0;
+}
+.ccdropdown .btn{
+  background-color: white;
+  color: inherit;
+}
+.ccdropdown .btn{
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-size: 12px;
+  margin-top: 1px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}

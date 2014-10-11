@@ -1,2 +1,45 @@
-<h1>Invoices#index</h1>
-<p>Find me in app/views/invoices/index.html.erb</p>
+/.filters
+  .way
+    .all
+      = link_to("all", bank_entries_path(filter: "all"))
+    .incomes
+      = link_to("incomes", bank_entries_path(filter: "incomes"))
+    .outcomes
+      = link_to("outcomes", bank_entries_path(filter: "outcomes"))
+/.list
+  .bank_left
+    - @bank_entries.each do |bank_entry|
+      - klass = "read" if bank_entry.read
+      - klass = "selected" if bank_entry == @actual_bank_entry
+      = link_to("#{bank_entry.bank_date} #{bank_entry.concept} #{bank_entry.amount} #{bank_entry.account_amount}",
+        bank_entries_path(id: bank_entry.id, amount: bank_entry.amount, date: bank_entry.bank_date, filter: params[:filter], page: params[:page]), { class: klass })
+      br
+
+    /= paginate @bank_entries
+
+  /.bank_right
+    - unless @proposed_invoices.nil?
+      - @proposed_invoices.each do |invoice|
+        .left_pane
+          span = invoice.issue_date
+          span = invoice.concept
+          span = invoice.origin_name
+          span = invoice.unitary_amount
+          span = invoice.quantity
+          span = invoice.vat
+          span = invoice.total_amount
+        .right_pane
+          = link_to bank_entries_path(amount: params[:amount], date: params[:date], id: params[:id], matched_id: invoice.id, filter: params[:filter], page: params[:page] ) do
+            = "match"
+        br
+    /- unless @current_matched_invoice.nil?
+      .left_pane
+        span = @current_matched_invoice.issue_date
+        span = @current_matched_invoice.concept
+        span = @current_matched_invoice.origin_name
+        span = @current_matched_invoice.unitary_amount
+        span = @current_matched_invoice.quantity
+        span = @current_matched_invoice.vat
+        span = @current_matched_invoice.total_amount
+
+
