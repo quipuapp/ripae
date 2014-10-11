@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20141011103125) do
 
   create_table "bank_accounts", force: true do |t|
     t.string   "number"
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "account_type"

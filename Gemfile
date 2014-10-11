@@ -12,13 +12,18 @@ gem 'kaminari'
 gem 'bootstrap-datepicker-rails'
 
 #Frontend
-gem 'slim'
+gem 'slim-rails'
 
 # Background
 gem 'sidekiq'
 gem 'sidetiq'
 
+# API
+gem 'omniauth-bancsabadell'
+gem 'rest-client'
+
 #Tools
+gem 'thin'
 gem 'draper'
 gem 'nested_form'
 

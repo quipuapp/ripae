@@ -46,6 +46,7 @@ GEM
     coffee-script-source (1.8.0)
     columnize (0.8.9)
     connection_pool (2.0.0)
+    daemons (1.1.8)
     debugger-linecache (1.2.0)
     draper (1.4.0)
       actionpack (>= 3.0)
@@ -53,6 +54,7 @@ GEM
       activesupport (>= 3.0)
       request_store (~> 1.0)
     erubis (2.7.0)
+    eventmachine (1.0.1)
     execjs (2.2.1)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
@@ -61,6 +63,9 @@ GEM
       railties (>= 3.0.0)
     faker (1.4.3)
       i18n (~> 0.5)
+    faraday (0.9.0)
+      multipart-post (>= 1.2, < 3)
+    hashie (3.3.1)
     hike (1.2.3)
     hitimes (1.2.2)
     i18n (0.6.11)
@@ -72,6 +77,7 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
+    jwt (1.0.0)
     kaminari (0.16.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -80,8 +86,27 @@ GEM
     mime-types (2.4.1)
     minitest (5.4.2)
     multi_json (1.10.1)
+    multi_xml (0.5.5)
+    multipart-post (2.0.0)
     mysql2 (0.3.16)
     nested_form (0.3.2)
+    netrc (0.7.7)
+    oauth2 (1.0.0)
+      faraday (>= 0.8, < 0.10)
+      jwt (~> 1.0)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (~> 1.2)
+    omniauth (1.2.2)
+      hashie (>= 1.2, < 4)
+      rack (~> 1.0)
+    omniauth-bancsabadell (0.1.0)
+      omniauth-oauth2 (~> 1.2)
+    omniauth-oauth2 (1.2.0)
+      faraday (>= 0.8, < 0.10)
+      multi_json (~> 1.3)
+      oauth2 (~> 1.0)
+      omniauth (~> 1.2)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -116,6 +141,9 @@ GEM
     redis-store (1.1.4)
       redis (>= 2.2)
     request_store (1.1.0)
+    rest-client (1.7.2)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     sass (3.2.19)
     sass-rails (4.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -138,6 +166,11 @@ GEM
     slim (2.0.3)
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
+    slim-rails (2.1.5)
+      actionpack (>= 3.0, < 4.2)
+      activesupport (>= 3.0, < 4.2)
+      railties (>= 3.0, < 4.2)
+      slim (~> 2.0)
     slop (3.6.0)
     spring (1.1.3)
     sprockets (2.11.0)
@@ -150,6 +183,10 @@ GEM
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
     temple (0.6.8)
+    thin (1.6.3)
+      daemons (~> 1.0, >= 1.0.9)
+      eventmachine (~> 1.0)
+      rack (~> 1.0)
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
@@ -178,14 +215,17 @@ DEPENDENCIES
   kaminari
   mysql2
   nested_form
+  omniauth-bancsabadell
   rails (= 4.1.6)
   redis
   redis-actionpack
+  rest-client
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   sidekiq
   sidetiq
-  slim
+  slim-rails
   spring
+  thin
   turbolinks
   uglifier (>= 1.3.0)
