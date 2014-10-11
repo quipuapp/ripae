@@ -1,16 +1,18 @@
 class BankEntriesController < ApplicationController
   def index
-    get_bank_entries(params)
+    get_bank_entries
+    get_first_bank_entry_data(@bank_entries.first)
 
-    if params[:id] && actual_bank_entry = BankEntry.find(params[:id])
-      matched_id = params[:matched_id] ? params[:matched_id] : actual_bank_entry.invoice_id
-      @current_matched_invoice = Invoice.find(matched_id) if matched_id
-      match_invoice(params, actual_bank_entry) if matched_id &&
-        actual_bank_entry.unmatched?
+    if params[:id] && @actual_bank_entry = BankEntry.find(params[:id])
+      matched_id = params[:matched_id] || @actual_bank_entry.invoice_id
+
+      mark_bank_entry_as_read
+      get_current_matched_invoice(matched_id) if matched_id
+      match_invoice(params, @actual_bank_entry) if matched_id && @actual_bank_entry.unmatched?
     end
 
     @proposed_invoices = proposed_invoices(params) if params &&
-      params[:matched_id].nil? && (actual_bank_entry.nil? || actual_bank_entry.unmatched?)
+      params[:matched_id].nil? && (@actual_bank_entry.nil? || @actual_bank_entry.unmatched?)
 
     paginate_bank_entries!
   end
@@ -23,7 +25,7 @@ class BankEntriesController < ApplicationController
     actual_bank_entry.update(invoice_id: params[:matched_id])
   end
 
-  def get_bank_entries(params={})
+  def get_bank_entries
     return @bank_entries = BankEntry.all.order("bank_date DESC") if params.blank? || !params[:filter]
     @bank_entries = BankEntry.all.order("bank_date DESC") if params[:filter] == "all"
     @bank_entries = BankEntry.inbounds.order("bank_date DESC") if params[:filter] == "incomes"
@@ -33,5 +35,18 @@ class BankEntriesController < ApplicationController
   def paginate_bank_entries!
     @page = params[:page] if params[:page]
     @bank_entries = @bank_entries.page(@page)
+  end
+
+  def get_current_matched_invoice(matched_id)
+    @current_matched_invoice = Invoice.find(matched_id)
+  end
+
+  def mark_bank_entry_as_read
+    BankEntry.find(params[:id]).update(read: true)
+  end
+
+  def get_first_bank_entry_data(bank_entry)
+    return @proposed_invoices = Invoice.where(total_amount: bank_entry_amount).order("issue_date DESC") if bank_entry.unmatched?
+    @current_matched_invoice = Invoice.find(bank_entry.invoice_id)
   end
 end

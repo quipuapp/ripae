@@ -9,11 +9,12 @@
 .list
   .bank_left
     - @bank_entries.each do |bank_entry|
+      - klass = "read" if bank_entry.read
       = link_to("#{bank_entry.bank_date} #{bank_entry.concept} #{bank_entry.amount} #{bank_entry.account_amount}",
-        bank_entries_path(id: bank_entry.id, amount: bank_entry.amount, date: bank_entry.bank_date, filter: params[:filter], page: params[:page]))
+        bank_entries_path(id: bank_entry.id, amount: bank_entry.amount, date: bank_entry.bank_date, filter: params[:filter], page: params[:page]), { class: klass })
       br
 
-    = paginate @bank_entries
+    /= paginate @bank_entries
 
   .bank_right
     - unless @proposed_invoices.nil?

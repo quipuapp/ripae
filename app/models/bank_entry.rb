@@ -1,5 +1,5 @@
 class BankEntry < ActiveRecord::Base
-  paginates_per 20
+  paginates_per 15
 
   belongs_to :bank_account
   belongs_to :invoice
