@@ -1,13 +1,31 @@
-.bank_left
-  width: 30%
-  float: left
-
-.bank_right
-  width: 70%
-  float: left
-  .left_pane
-    width: 80%
-    float: left
-  .right_pane
+.filters
+  width: 100%
+  .way
     width: 20%
+    .all, .incomes, .outcomes
+      float: left
+      margin-left: 10px
+    .all
+      margin-left: 0
+
+.list
+  clear: both
+  width: 100%
+  padding-top: 20px
+  .bank_left
+    width: 30%
     float: left
+
+  .bank_right
+    width: 70%
+    float: left
+    .left_pane
+      width: 80%
+      float: left
+      span
+        margin-left: 20px
+        &:first-child
+          margin-left: 0
+    .right_pane
+      width: 20%
+      float: left
