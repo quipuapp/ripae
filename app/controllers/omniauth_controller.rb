@@ -4,6 +4,6 @@ class OmniauthController < ApplicationController
   def bancsabadell
     save_credentials!(request.env["omniauth.auth"].credentials)
 
-    redirect_to bank_entries_path
+    redirect_to importing_path
   end
 end

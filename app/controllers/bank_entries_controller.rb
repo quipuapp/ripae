@@ -17,6 +17,14 @@ class BankEntriesController < ApplicationController
     paginate_bank_entries!
   end
 
+  def sync_with_api
+    sleep(5)
+
+    redirect_to bank_entries_path
+  end
+
+  private
+
   def proposed_invoices(params)
     Invoice.where(total_amount: params[:amount]).order("issue_date DESC")
   end
