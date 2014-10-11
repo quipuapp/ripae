@@ -19,7 +19,7 @@ task :populate_fake_data => :environment do
       bank_date: rand(range),
     )
   end
-  imports = BankEntry.all.map { |x| x.amount }.shuffle[0..149]
+  imports = BankEntry.all.map { |x| x.amount }.shuffle
   Invoice.fake_invoices(imports, range)
 
   BankAccount.all.each do |bank_account|

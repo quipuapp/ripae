@@ -1,0 +1,30 @@
+.bank_left
+  - @bank_entries.each do |bank_entry|
+    = link_to("#{bank_entry.bank_date} #{bank_entry.concept} #{bank_entry.amount} #{bank_entry.account_amount}",
+      bank_path(id: bank_entry.id, amount: bank_entry.amount, date: bank_entry.bank_date))
+    br
+
+.bank_right
+  - unless @proposed_invoices.nil?
+    - @proposed_invoices.each do |invoice|
+      .left_pane
+        = invoice.issue_date
+        = invoice.concept
+        = invoice.origin_name
+        = invoice.unitary_amount
+        = invoice.quantity
+        = invoice.vat
+        = invoice.total_amount
+      .right_pane
+        = link_to bank_path(amount: params[:amount], date: params[:date], matched_id: invoice.id ) do
+          = "match"
+      br
+  - unless @current_matched_invoice.nil?
+    .left_pane
+      = @current_matched_invoice.issue_date
+      = @current_matched_invoice.concept
+      = @current_matched_invoice.origin_name
+      = @current_matched_invoice.unitary_amount
+      = @current_matched_invoice.quantity
+      = @current_matched_invoice.vat
+      = @current_matched_invoice.total_amount
