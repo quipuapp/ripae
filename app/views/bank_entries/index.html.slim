@@ -10,6 +10,7 @@
   .bank_left
     - @bank_entries.each do |bank_entry|
       - klass = "read" if bank_entry.read
+      - klass = "selected" if bank_entry == @actual_bank_entry
       = link_to("#{bank_entry.bank_date} #{bank_entry.concept} #{bank_entry.amount} #{bank_entry.account_amount}",
         bank_entries_path(id: bank_entry.id, amount: bank_entry.amount, date: bank_entry.bank_date, filter: params[:filter], page: params[:page]), { class: klass })
       br

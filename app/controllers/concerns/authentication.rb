@@ -23,10 +23,12 @@ module Authentication
   end
 
   def token_expired?
+    return
     session[:expires_at] <= Time.now.to_i
   end
 
   def refresh_token!
+    return
     refresh_response = RestClient.post("https://developers.bancsabadell.com/AuthServerBS/oauth/token",
                                        grant_type: 'refresh_token', refresh_token: session[:refresh_token],
                                        client_id: CUSTOM_CONFIG['banc_sabadell']['client_id'],
