@@ -1,9 +1,8 @@
 desc "create fake data for Riape"
 
 task :populate_fake_data => :environment do
-  BankAccount.delete_all
-  BankEntry.delete_all
-  Invoice.delete_all
+  Rake::Task['clean'].invoke
+
   range = Date.today-100..Date.today
   %w{ current card cash e-commerce }.each do |account_type|
     BankAccount.create(
