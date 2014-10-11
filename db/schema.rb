@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141011100726) do
+ActiveRecord::Schema.define(version: 20141011103125) do
 
   create_table "bank_accounts", force: true do |t|
     t.string   "number"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20141011100726) do
     t.boolean  "read",                                     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "account_amount",  precision: 15, scale: 4
   end
 
   create_table "invoices", force: true do |t|

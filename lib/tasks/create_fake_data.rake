@@ -14,11 +14,19 @@ task :populate_fake_data => :environment do
   600.times do
     BankEntry.create(
       concept: Faker::App.name,
-      amount: rand(25..1600),
+      amount: rand(-1470..1600),
       bank_account_id: BankAccount.all.map {|x| x.id }.sample,
-      bank_date: rand(range)
+      bank_date: rand(range),
     )
   end
   imports = BankEntry.all.map { |x| x.amount }.shuffle[0..149]
   Invoice.fake_invoices(imports, range)
+
+  BankAccount.all.each do |bank_account|
+    bank_account.bank_entries.each_with_index do |entry, index|
+      previous_account_amount = (bank_account.bank_entries[index-1].account_amount || 0)
+      account_amount = previous_account_amount + entry.amount
+      entry.update(account_amount: account_amount)
+    end
+  end
 end
