@@ -5,7 +5,7 @@ class Invoice < ActiveRecord::Base
   USER_NAME = "Luca Pursals"
 
   class << self
-    def fake_invoice(prices, range)
+    def fake_invoices(prices, range)
       prices.each do |price|
         t=[{a: true}, {b: true}].sample
         origin_name, target_name=USER_NAME, Faker::Name.name if t[:a].present?
@@ -22,7 +22,6 @@ class Invoice < ActiveRecord::Base
           issue_date: rand(range),
           vat: 21
         )
-        save!
       end
     end
   end
