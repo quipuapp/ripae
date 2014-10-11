@@ -2,20 +2,22 @@
   .row.top-menu-section
     .col-md-12
       nav
-        a.logo href="#" 
-          img src="imgs/logo-rq.svg" 
-        a.top-tab.active
-          | Banco
-        a.top-tab
-          | Facturas
+        = link_to "#", class: "logo" do
+          = image_tag "logo-rq.svg"
+        = link_to "Banco", "#", class: "top-tab active"
+        = link_to "Facturas", "#", class: "top-tab"
+
   .row.dash-section
     .dropdown.ccdropdown
       button#dropdownMenu1.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button" 
-        | Cuenta principal
+        = @current_bank_account.name
         span.caret
       ul.dropdown-menu aria-labelledby="dropdownMenu1" role="menu" 
-        li role="presentation" 
-          a href="#" role="menuitem" tabindex="-1"  Targeta de crédito
+        - @other_bank_accounts.each do |bank_account|
+          li role="presentation" 
+            = link_to bank_account.name, { bank_account_id: bank_account.id },
+              "role" => "menuitem", "tabindex" => "-1"
+        li.divider role="presentation" 
         li role="presentation" 
           a href="#" role="menuitem" tabindex="-1"  E-commerce
         li role="presentation" 
@@ -23,7 +25,10 @@
         li.divider role="presentation" 
         li role="presentation" 
           a href="#" role="menuitem" tabindex="-1"  + Crear cuenta
-    span.total Saldo total: 5420,40 €
+    span.total
+      ' Saldo total:
+      = number_to_currency @most_recent_bank_entry
+
   .plus-minus-filters-section
     .plus-minus-filters-container
       .col-md-8
