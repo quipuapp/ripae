@@ -23,7 +23,7 @@
         .left_pane
           span = invoice.issue_date
           span = invoice.concept
-          span = invoice.origin_name
+          span = invoice.contact_name
           span = invoice.unitary_amount
           span = invoice.quantity
           span = invoice.vat
@@ -36,9 +36,8 @@
       .left_pane
         span = @current_matched_invoice.issue_date
         span = @current_matched_invoice.concept
-        span = @current_matched_invoice.origin_name
+        span = @current_matched_invoice.contact_name
         span = @current_matched_invoice.unitary_amount
         span = @current_matched_invoice.quantity
         span = @current_matched_invoice.vat
         span = @current_matched_invoice.total_amount
-
