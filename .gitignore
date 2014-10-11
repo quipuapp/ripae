@@ -17,3 +17,5 @@
 
 config/app.yml
 config/database.yml
+
+*.DS_Store

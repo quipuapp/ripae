@@ -11,14 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141011103125) do
+ActiveRecord::Schema.define(version: 20141011221535) do
 
   create_table "bank_accounts", force: true do |t|
-    t.string   "number"
+    t.string   "iban"
     t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "account_type"
+    t.string   "description"
+    t.string   "product_number"
   end
 
   create_table "bank_entries", force: true do |t|
@@ -31,12 +33,11 @@ ActiveRecord::Schema.define(version: 20141011103125) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.decimal  "account_amount",  precision: 15, scale: 4
+    t.string   "order_number"
   end
 
   create_table "invoices", force: true do |t|
     t.string   "concept"
-    t.string   "target_name"
-    t.string   "origin_name"
     t.decimal  "unitary_amount", precision: 15, scale: 4
     t.integer  "quantity"
     t.decimal  "total_amount",   precision: 15, scale: 4
@@ -45,6 +46,7 @@ ActiveRecord::Schema.define(version: 20141011103125) do
     t.boolean  "read",                                    default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "contact_name"
   end
 
 end

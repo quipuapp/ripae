@@ -1,3 +1,8 @@
+require 'rake'
+
+Rake::Task.clear
+Ripae::Application.load_tasks
+
 class BankEntriesController < ApplicationController
   def index
     get_bank_entries
@@ -18,7 +23,8 @@ class BankEntriesController < ApplicationController
   end
 
   def sync_with_api
-    sleep(5)
+    Rake::Task['sync_with_api'].invoke(session[:token])
+    sleep(4)
 
     redirect_to bank_entries_path
   end

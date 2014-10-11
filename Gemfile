@@ -30,6 +30,7 @@ gem 'thin'
 gem 'draper'
 gem 'nested_form'
 gem 'quiet_assets'
+gem 'roo'
 
 # Storage
 gem 'mysql2'

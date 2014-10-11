@@ -1,6 +1,8 @@
 class Invoice < ActiveRecord::Base
-
   has_one :bank_entry
+
+  validates_presence_of :concept, :contact_name, :unitary_amount,
+    :quantity, :vat
 
   USER_NAME = "Rust Cohle"
 
