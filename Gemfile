@@ -26,6 +26,7 @@ gem 'rest-client'
 gem 'thin'
 gem 'draper'
 gem 'nested_form'
+gem 'quiet_assets'
 
 # Storage
 gem 'mysql2'

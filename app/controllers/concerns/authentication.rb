@@ -7,6 +7,10 @@ module Authentication
 
   protected
 
+  def token
+    session[:token]
+  end
+
   def save_credentials!(credentials)
     session[:token] = credentials.token
     session[:expires_at] = credentials.expires_at
