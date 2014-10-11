@@ -1,17 +1,19 @@
 .filters
   .way
     .all
-      = link_to("all", bank_path(filter: "all"))
+      = link_to("all", bank_entries_path(filter: "all"))
     .incomes
-      = link_to("incomes", bank_path(filter: "incomes"))
+      = link_to("incomes", bank_entries_path(filter: "incomes"))
     .outcomes
-      = link_to("outcomes", bank_path(filter: "outcomes"))
+      = link_to("outcomes", bank_entries_path(filter: "outcomes"))
 .list
   .bank_left
     - @bank_entries.each do |bank_entry|
       = link_to("#{bank_entry.bank_date} #{bank_entry.concept} #{bank_entry.amount} #{bank_entry.account_amount}",
-        bank_path(id: bank_entry.id, amount: bank_entry.amount, date: bank_entry.bank_date, filter: params[:filter]))
+        bank_entries_path(id: bank_entry.id, amount: bank_entry.amount, date: bank_entry.bank_date, filter: params[:filter], page: params[:page]))
       br
+
+    = paginate @bank_entries
 
   .bank_right
     - unless @proposed_invoices.nil?
@@ -25,7 +27,7 @@
           span = invoice.vat
           span = invoice.total_amount
         .right_pane
-          = link_to bank_path(amount: params[:amount], date: params[:date], id: params[:id], matched_id: invoice.id, filter: params[:filter] ) do
+          = link_to bank_entries_path(amount: params[:amount], date: params[:date], id: params[:id], matched_id: invoice.id, filter: params[:filter], page: params[:page] ) do
             = "match"
         br
     - unless @current_matched_invoice.nil?
@@ -37,3 +39,4 @@
         span = @current_matched_invoice.quantity
         span = @current_matched_invoice.vat
         span = @current_matched_invoice.total_amount
+

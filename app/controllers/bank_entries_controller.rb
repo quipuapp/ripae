@@ -1,6 +1,5 @@
 class BankEntriesController < ApplicationController
   def index
-
     get_bank_entries(params)
 
     if params[:id] && actual_bank_entry = BankEntry.find(params[:id])
@@ -12,6 +11,8 @@ class BankEntriesController < ApplicationController
 
     @proposed_invoices = proposed_invoices(params) if params &&
       params[:matched_id].nil? && (actual_bank_entry.nil? || actual_bank_entry.unmatched?)
+
+    paginate_bank_entries!
   end
 
   def proposed_invoices(params)
@@ -27,5 +28,10 @@ class BankEntriesController < ApplicationController
     @bank_entries = BankEntry.all.order("bank_date DESC") if params[:filter] == "all"
     @bank_entries = BankEntry.inbounds.order("bank_date DESC") if params[:filter] == "incomes"
     @bank_entries = BankEntry.outbounds.order("bank_date DESC") if params[:filter] == "outcomes"
+  end
+
+  def paginate_bank_entries!
+    @page = params[:page] if params[:page]
+    @bank_entries = @bank_entries.page(@page)
   end
 end
