@@ -16,7 +16,7 @@ class BankEntriesController < ApplicationController
 
   def sync_with_api
     Rake::Task['sync_with_api'].invoke(session[:token])
-    sleep(4)
+    sleep(7)
 
     redirect_to bank_entries_path
   end

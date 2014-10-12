@@ -1,5 +1,16 @@
 h1 Importing
-p We are importing your stuff! :D
+p#loading-title
 
 javascript:
+  function showLoadingTitle(seconds, title){
+    setTimeout(function(){
+      $('p#loading-title').text(title);
+    }, seconds * 1000);
+  }
+
+  showLoadingTitle(0, "Hello");
+  showLoadingTitle(2, "How");
+  showLoadingTitle(4, "Are");
+  showLoadingTitle(6, "You");
+
   location.href = '#{raw sync_with_api_bank_entries_path}';
