@@ -15,6 +15,7 @@ class BankEntriesController < ApplicationController
   end
 
   def sync_with_api
+    Rake::Task['clean'].invoke
     Rake::Task['sync_with_api'].invoke(session[:token])
     sleep(7)
 

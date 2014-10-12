@@ -7,9 +7,6 @@ def recover_amount(amount)
 end
 
 task :sync_with_api, [:token] => [:environment] do |t, args|
-  # Clean state
-  Rake::Task['clean'].invoke
-
   # Import bank entries
   BancSabadell.api_key = args.token
   BancSabadell::Product.all.each do |product|
