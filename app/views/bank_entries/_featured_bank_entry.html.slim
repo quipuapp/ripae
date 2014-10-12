@@ -27,5 +27,8 @@
           .form-group
             input.form-control.invoice-filter placeholder="Buscar" type="text"
       .move-matches-list
-        - @related_invoices.each do |invoice|
-          = render 'invoice', invoice: invoice, allow_matching: true
+        - if @related_invoices.any?
+          - @related_invoices.each do |invoice|
+            = render 'invoice', invoice: invoice, allow_matching: true
+        - else
+          | No tienes ninguna factura candidata para asignar.

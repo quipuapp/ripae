@@ -10,6 +10,10 @@ class Invoice < ActiveRecord::Base
     bank_entry.present?
   end
 
+  def unmatched?
+    !matched?
+  end
+
   class << self
     def fake_invoices(prices, range)
       3.times do

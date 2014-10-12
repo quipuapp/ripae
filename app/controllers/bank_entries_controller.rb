@@ -52,7 +52,7 @@ class BankEntriesController < ApplicationController
     if @featured_bank_entry.matched?
       @current_matched_invoice = @featured_bank_entry.invoice
     else
-      @related_invoices = Invoice.where(total_amount: @featured_bank_entry.amount)
+      @related_invoices = Invoice.where(total_amount: @featured_bank_entry.amount).select(&:unmatched?)
     end
   end
 
