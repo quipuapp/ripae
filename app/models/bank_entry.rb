@@ -10,8 +10,8 @@ class BankEntry < ActiveRecord::Base
   scope :newest_first, lambda { order("bank_date DESC, id DESC") }
   scope :pending, lambda { where(arel_table[:invoice_id].eq(nil)) }
   scope :unmatched, lambda { where("bank_account_id is NOT NULL and bank_account_id != ''") }
-  scope :inbounds, lambda { where("amount < 0") }
-  scope :outbounds, lambda { where("amount >= 0") }
+  scope :incomes, lambda { where("amount > 0") }
+  scope :outcomes, lambda { where("amount < 0") }
 
   def matched?
     invoice.present?

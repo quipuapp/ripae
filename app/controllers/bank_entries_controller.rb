@@ -35,17 +35,20 @@ class BankEntriesController < ApplicationController
 
   def filter_bank_entries
     @current_filter = params[:filter] || "all"
-    @bank_entries = @bank_entries.inbounds if params[:filter] == 'inbounds'
-    @bank_entries = @bank_entries.outbounds if params[:filter] == 'outbounds'
+    @bank_entries = @bank_entries.incomes if params[:filter] == 'incomes'
+    @bank_entries = @bank_entries.outcomes if params[:filter] == 'outcomes'
     @bank_entries = @bank_entries.pending if params[:filter] == 'pending'
   end
 
   def load_featured_bank_entry
-    @featured_bank_entry = @bank_entries.find_by(id: params[:selected_bank_entry_id]) || @bank_entries.first
-    @featured_bank_entry.mark_as_read!
+    if @featured_bank_entry = @bank_entries.find_by(id: params[:selected_bank_entry_id]) || @bank_entries.first
+      @featured_bank_entry.mark_as_read!
+    end
   end
 
   def load_related_invoices
+    return unless @featured_bank_entry.present?
+
     if @featured_bank_entry.matched?
       @current_matched_invoice = @featured_bank_entry.invoice
     else

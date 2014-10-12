@@ -15,7 +15,7 @@
       ul.dropdown-menu aria-labelledby="dropdownMenu1" role="menu"
         - @other_bank_accounts.each do |bank_account|
           li role="presentation"
-            = link_to bank_account.name, { bank_account_id: bank_account.id },
+            = link_to bank_account.name, { bank_account_id: bank_account.id, filter: @current_filter },
               "role" => "menuitem", "tabindex" => "-1"
         li.divider role="presentation"
         li role="presentation"
@@ -27,10 +27,10 @@
           a href="#" role="menuitem" tabindex="-1" + Crear cuenta
 
     - if @most_recent_bank_entry.present?
-    span.total
-      ' Saldo total:
-      - account_amount = @most_recent_bank_entry.present? ? @most_recent_bank_entry.account_amount : 0
-      = number_to_currency account_amount
+      span.total
+        ' Saldo total:
+        - account_amount = @most_recent_bank_entry.present? ? @most_recent_bank_entry.account_amount : 0
+        = number_to_currency account_amount
 
   .plus-minus-filters-section
     .plus-minus-filters-container
@@ -41,7 +41,7 @@
             li class=clazz
               - active_clazz = ''
               - active_clazz = 'active' if @current_filter == filter_type.to_s
-              = link_to name, { filter: filter_type }, class: active_clazz
+              = link_to name, { bank_account_id: @current_bank_account.id, filter: filter_type }, class: active_clazz
 
       .col-md-4.text-right
         form.navbar-form.navbar-right role="search"
@@ -56,8 +56,10 @@
           - clazz = 'list-group-item move-item'
           - clazz += (bank_entry.amount > 0) ? ' move-plus' : ' move-minus'
           - clazz += ' move-open' if @featured_bank_entry == bank_entry
+          - clazz += ' move-opened' if bank_entry.read?
+          - clazz += ' move-done' if bank_entry.matched?
           li class=clazz
-            - bank_entry_url = { selected_bank_entry_id: bank_entry.id }
+            - bank_entry_url = { bank_account_id: @current_bank_account.id, selected_bank_entry_id: bank_entry.id, filter: @current_filter }
             = link_to bank_entry_url do
               .row.right
                 .col-md-9
@@ -71,33 +73,34 @@
                     .move-note
 
     .main.h100.ofy-scroll
-      .col-md-4.h100.move-info
-        h3= (@featured_bank_entry.amount > 0) ? 'Ingreso' : 'Gasto'
-        .move-detail-list
-          .move-detail
-            span.detail-title Fecha:
-            p= @featured_bank_entry.bank_date
-          .move-detail
-            span.detail-title Concepto:
-            p= @featured_bank_entry.concept
-          .move-detail
-            span.detail-title Importe:
-            p= number_to_currency(@featured_bank_entry.amount)
+      - if @featured_bank_entry.present?
+        .col-md-4.h100.move-info
+          h3= (@featured_bank_entry.amount > 0) ? 'Ingreso' : 'Gasto'
+          .move-detail-list
+            .move-detail
+              span.detail-title Fecha:
+              p= @featured_bank_entry.bank_date
+            .move-detail
+              span.detail-title Concepto:
+              p= @featured_bank_entry.concept
+            .move-detail
+              span.detail-title Importe:
+              p= number_to_currency(@featured_bank_entry.amount)
 
-      .col-md-1.mid-border
-      .col-md-1
-      .col-md-6.move-matches
-        - if @featured_bank_entry.matched?
-          h3= (@featured_bank_entry.amount > 0) ? 'Tu factura emitida asignada' : 'Tu factura de gasto asignada'
-          .move-matches-list
-            = render 'invoice', invoice: @current_matched_invoice
-        - else
-          h3= (@featured_bank_entry.amount > 0) ? 'Tus facturas emitidas' : 'Tus facturas de gastos'
-          .move-match-options
-            = link_to '+ Crear factura', '#', class: 'btn btn-default'
-            form.navbar-right role="search"
-              .form-group
-                input.form-control.invoice-filter placeholder="Buscar" type="text"
-          .move-matches-list
-            - @related_invoices.each do |invoice|
-              = render 'invoice', invoice: invoice
+        .col-md-1.mid-border
+        .col-md-1
+        .col-md-6.move-matches
+          - if @featured_bank_entry.matched?
+            h3= (@featured_bank_entry.amount > 0) ? 'Tu factura emitida asignada' : 'Tu factura de gasto asignada'
+            .move-matches-list
+              = render 'invoice', invoice: @current_matched_invoice
+          - else
+            h3= (@featured_bank_entry.amount > 0) ? 'Tus facturas emitidas' : 'Tus facturas de gastos'
+            .move-match-options
+              = link_to '+ Crear factura', '#', class: 'btn btn-default'
+              form.navbar-right role="search"
+                .form-group
+                  input.form-control.invoice-filter placeholder="Buscar" type="text"
+            .move-matches-list
+              - @related_invoices.each do |invoice|
+                = render 'invoice', invoice: invoice
