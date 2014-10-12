@@ -57,8 +57,7 @@ class BankEntriesController < ApplicationController
   end
 
   def match_invoice_to_bank_entry
-    if invoice = Invoice.find_by(id: params[:matched_invoice_id])
-      puts "Assign invoice ##{invoice.id} to bank entry ##{@featured_bank_entry.id}"
+    if @featured_bank_entry.present? && invoice = Invoice.find_by(id: params[:matched_invoice_id])
       @featured_bank_entry.assign_to_invoice!(invoice)
     end
   end
