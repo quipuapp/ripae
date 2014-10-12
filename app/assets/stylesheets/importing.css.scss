@@ -1,0 +1,37 @@
+body.home.importing {
+  background-image: url(bg-des.jpg);
+  background-size: 100%;
+}
+
+.loader {
+  width: 118px;
+  height: 118px;
+  border-radius: 120px;
+  overflow: hidden;
+  text-align: center;
+  margin: 0 auto;
+}
+.loader img {
+  width: 120px;
+  height: 120px;
+  border-radius: 120px;
+  text-align: center;
+}
+
+.loader-container {
+  text-align: center;
+  width: 800px;
+  margin: 0 auto;
+  padding-top: 120px;
+  color: #304716
+}
+
+.load-txt-1 {
+  font-weight: 700;
+  font-size: 36px;
+  margin-top: 40px;
+}
+
+.load-txt-2 {
+  font-size: 21px;
+}
