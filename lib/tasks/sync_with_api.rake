@@ -38,7 +38,7 @@ task :sync_with_api, [:token] => [:environment] do |t, args|
   end
 
   # Create invoices from file
-  invoices_spreadsheet = Roo::Excelx.new(Rails.root.join('lib/tasks/fake_invoices.xlsx').to_s)
+  invoices_spreadsheet = Roo::Excelx.new(Rails.root.join('lib/tasks/data/fake_invoices.xlsx').to_s)
   invoices_spreadsheet.default_sheet = invoices_spreadsheet.sheets.first
 
   (invoices_spreadsheet.first_row + 1).upto(invoices_spreadsheet.last_row) do |row|
