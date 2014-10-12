@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 
-#pre-installed
+# Rails
 gem 'rails', '4.1.6'
+
+# Rails-related
 gem 'rails-i18n'
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
@@ -14,19 +16,15 @@ gem 'jbuilder', '~> 2.0'
 gem 'kaminari'
 gem 'bootstrap-datepicker-rails'
 
-#Frontend
+# Frontend
 gem 'slim-rails'
-
-# Background
-gem 'sidekiq'
-gem 'sidetiq'
 
 # API
 gem 'omniauth-bancsabadell'
 gem 'bancsabadell-api', require: 'banc_sabadell', path: '../bancsabadell-api'
 gem 'rest-client'
 
-#Tools
+# Tools
 gem 'thin'
 gem 'draper'
 gem 'nested_form'
@@ -38,11 +36,9 @@ gem 'mysql2'
 gem 'redis'
 gem 'redis-actionpack'
 
-# Testing
-gem 'factory_girl_rails'
-
-gem 'sdoc', '~> 0.4.0',          group: :doc
-
-gem 'spring',        group: :development
-gem 'faker',         group: :development
-gem 'byebug',        group: :development
+# Development
+group :development do
+  gem 'spring'
+  gem 'faker'
+  gem 'byebug'
+end
