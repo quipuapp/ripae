@@ -1,0 +1,19 @@
+//li.list-group-item.move-item.move-plus.move-minus.move-done.move-opened
+- clazz = 'list-group-item move-item'
+- clazz += (bank_entry.amount > 0) ? ' move-plus' : ' move-minus'
+- clazz += ' move-open' if @featured_bank_entry == bank_entry
+- clazz += ' move-opened' if bank_entry.read?
+- clazz += ' move-done' if bank_entry.matched?
+li class=clazz
+  - bank_entry_url = { bank_account_id: @current_bank_account.id, selected_bank_entry_id: bank_entry.id, filter: @current_filter }
+  = link_to bank_entry_url do
+    .row.right
+      .col-md-9
+        small= bank_entry.bank_date
+        p.w600= bank_entry.concept
+        p= number_to_currency(bank_entry.amount)
+      .col-md-3
+        small.text-right.move-total= number_to_currency(bank_entry.account_amount)
+        .move-options
+          .move-flag.on-off
+          .move-note

@@ -1,0 +1,31 @@
+- if @featured_bank_entry.present?
+  .col-md-4.h100.move-info
+    h3= (@featured_bank_entry.amount > 0) ? 'Ingreso' : 'Gasto'
+    .move-detail-list
+      .move-detail
+        span.detail-title Fecha:
+        p= @featured_bank_entry.bank_date
+      .move-detail
+        span.detail-title Concepto:
+        p= @featured_bank_entry.concept
+      .move-detail
+        span.detail-title Importe:
+        p= number_to_currency(@featured_bank_entry.amount)
+
+  .col-md-1.mid-border
+  .col-md-1
+  .col-md-6.move-matches
+    - if @featured_bank_entry.matched?
+      h3= (@featured_bank_entry.amount > 0) ? 'Tu factura emitida asignada' : 'Tu factura de gasto asignada'
+      .move-matches-list
+        = render 'invoice', invoice: @current_matched_invoice
+    - else
+      h3= (@featured_bank_entry.amount > 0) ? 'Tus facturas emitidas' : 'Tus facturas de gastos'
+      .move-match-options
+        = link_to '+ Crear factura', '#', class: 'btn btn-default'
+        form.navbar-right role="search"
+          .form-group
+            input.form-control.invoice-filter placeholder="Buscar" type="text"
+      .move-matches-list
+        - @related_invoices.each do |invoice|
+          = render 'invoice', invoice: invoice

@@ -1,0 +1,48 @@
+.row.top-menu-section
+  .col-md-12
+    nav
+      = link_to "#", class: "logo" do
+        = image_tag "logo-rq.svg"
+      = link_to "Banco", "#", class: "top-tab active"
+      = link_to "Facturas", "#", class: "top-tab"
+
+.row.dash-section
+  .dropdown.ccdropdown
+    button#dropdownMenu1.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button"
+      = @current_bank_account.name
+      span.caret
+    ul.dropdown-menu aria-labelledby="dropdownMenu1" role="menu"
+      - @other_bank_accounts.each do |bank_account|
+        li role="presentation"
+          = link_to bank_account.name, { bank_account_id: bank_account.id, filter: @current_filter },
+            "role" => "menuitem", "tabindex" => "-1"
+      li.divider role="presentation"
+      li role="presentation"
+        = link_to 'E-commerce', '#', "role" => "menuitem", "tabindex" => "-1"
+      li role="presentation"
+        = link_to 'Tarjeta de crédito', '#', "role" => "menuitem", "tabindex" => "-1"
+      li.divider role="presentation"
+      li role="presentation"
+        a href="#" role="menuitem" tabindex="-1" + Crear cuenta
+
+  - if @most_recent_bank_entry.present?
+    span.total
+      ' Saldo total:
+      - account_amount = @most_recent_bank_entry.present? ? @most_recent_bank_entry.account_amount : 0
+      = number_to_currency account_amount
+
+.plus-minus-filters-section
+  .plus-minus-filters-container
+    .col-md-8
+      ul.list-inline.plus-minus-filters
+        - { all: ['plus-minus-all', 'Todo'], incomes: ['filter-plus', 'Ingresos'],
+          outcomes: ['filter-minus', 'Gastos'], pending: ['undone', 'Pendientes de conciliar']}.each do |filter_type, (clazz, name)|
+          li class=clazz
+            - active_clazz = ''
+            - active_clazz = 'active' if @current_filter == filter_type.to_s
+            = link_to name, { bank_account_id: @current_bank_account.id, filter: filter_type }, class: active_clazz
+
+    .col-md-4.text-right
+      form.navbar-form.navbar-right role="search"
+        .form-group
+          input.form-control.search-filter placeholder="Buscar" type="text"
