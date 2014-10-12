@@ -5,21 +5,13 @@ Ripae::Application.load_tasks
 
 class BankEntriesController < ApplicationController
   def index
-    get_bank_entries
-    get_first_bank_entry_data(@bank_entries.first)
+    load_bank_account
+    load_and_sort_bank_entries
+    filter_bank_entries
 
-    if params[:id] && @actual_bank_entry = BankEntry.find(params[:id])
-      matched_id = params[:matched_id] || @actual_bank_entry.invoice_id
-
-      mark_bank_entry_as_read
-      get_current_matched_invoice(matched_id) if matched_id
-      match_invoice(params, @actual_bank_entry) if matched_id && @actual_bank_entry.unmatched?
-    end
-
-    @proposed_invoices = proposed_invoices(params) if params &&
-      params[:matched_id].nil? && (@actual_bank_entry.nil? || @actual_bank_entry.unmatched?)
-
-    paginate_bank_entries!
+    load_featured_bank_entry
+    load_related_invoices
+    match_invoice_to_bank_entry
   end
 
   def sync_with_api
@@ -31,37 +23,39 @@ class BankEntriesController < ApplicationController
 
   private
 
-  def proposed_invoices(params)
-    Invoice.where(total_amount: params[:amount]).order("issue_date DESC")
+  def load_bank_account
+    @current_bank_account = BankAccount.find_by(id: params[:bank_account_id]) || BankAccount.first
+    @other_bank_accounts = BankAccount.all - [@current_bank_account]
   end
 
-  def match_invoice(params, actual_bank_entry)
-    actual_bank_entry.update(invoice_id: params[:matched_id])
+  def load_and_sort_bank_entries
+    @bank_entries = @current_bank_account.bank_entries.newest_first
+    @most_recent_bank_entry = @bank_entries.first
   end
 
-  def get_bank_entries
-    return @bank_entries = BankEntry.all.order("bank_date DESC, id DESC") if params.blank? || !params[:filter]
-    @bank_entries = BankEntry.all.order("bank_date DESC, id DESC") if params[:filter] == "all"
-    @bank_entries = BankEntry.inbounds.order("bank_date DESC, id DESC") if params[:filter] == "incomes"
-    @bank_entries = BankEntry.outbounds.order("bank_date DESC, id DESC") if params[:filter] == "outcomes"
+  def filter_bank_entries
+    @current_filter = params[:filter] || "all"
+    @bank_entries = @bank_entries.inbounds if params[:filter] == 'inbounds'
+    @bank_entries = @bank_entries.outbounds if params[:filter] == 'outbounds'
+    @bank_entries = @bank_entries.pending if params[:filter] == 'pending'
   end
 
-  def paginate_bank_entries!
-    @page = params[:page] if params[:page]
-    @bank_entries = @bank_entries.page(@page)
+  def load_featured_bank_entry
+    @featured_bank_entry = @bank_entries.find_by(id: params[:selected_bank_entry_id]) || @bank_entries.first
+    @featured_bank_entry.mark_as_read!
   end
 
-  def get_current_matched_invoice(matched_id)
-    @current_matched_invoice = Invoice.find(matched_id)
+  def load_related_invoices
+    if @featured_bank_entry.matched?
+      @current_matched_invoice = @featured_bank_entry.invoice
+    else
+      @related_invoices = Invoice.where(total_amount: @featured_bank_entry.amount)
+    end
   end
 
-  def mark_bank_entry_as_read
-    BankEntry.find(params[:id]).update(read: true)
-  end
-
-  def get_first_bank_entry_data(bank_entry)
-    return @proposed_invoices = Invoice.where(total_amount: bank_entry.amount).order("issue_date DESC") if bank_entry.unmatched?
-    @current_matched_invoice = Invoice.find(bank_entry.invoice_id)
-    @actual_bank_entry = bank_entry
+  def match_invoice_to_bank_entry
+    if invoice = Invoice.find_by(params[:matched_invoice_id])
+      #@featured_bank_entry.assign_to_invoice!(invoice)
+    end
   end
 end

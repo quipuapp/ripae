@@ -36,7 +36,7 @@ body {
   margin-left: 30px;
   padding-left: 50px;
   -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;  
+  transition: all 0.2s ease;
   border-radius: 0 !important;
 }
 
@@ -52,13 +52,13 @@ body {
 
 
 .move-plus {
-  background-image: url('imgs/plus.png');
+  background-image: url('plus.png');
   background-position: 10px center;
   background-repeat: no-repeat;
 }
 
 .move-minus {
-  background-image: url('imgs/minus.png');
+  background-image: url('minus.png');
   background-position: 10px center;
   background-repeat: no-repeat;
 }
@@ -95,7 +95,7 @@ body {
   float: left;
   height: 22px;
   width: 22px;
-  background-image: url(imgs/note.png);
+  background-image: url(note.png);
   margin-left: 10px;
 }
 
@@ -103,7 +103,7 @@ body {
   float: left;
   height: 22px;
   width: 11px;
-  background-image: url(imgs/flag.png);
+  background-image: url(flag.png);
   background-position: 0px 22px;
   cursor: pointer;
 }
@@ -219,7 +219,7 @@ body {
 }
 
 .filter-plus a {
-  background-image: url(imgs/plus.png);
+  background-image: url(plus.png);
   background-position: 10px center;
   background-repeat: no-repeat;
 }
@@ -227,20 +227,20 @@ body {
 .filter-plus a.active
 {
   background-color: #39B54A;
-  background-image: url(imgs/plus-w.png);
+  background-image: url(plus-w.png);
   color: white;
 }
 .filter-minus a:hover,
 .filter-minus a.active
 {
   background-color: #D20000;
-  background-image: url(imgs/minus-w.png);
+  background-image: url(minus-w.png);
   color: white;
 }
 
 
 .filter-minus a {
-  background-image: url(imgs/minus.png);
+  background-image: url(minus.png);
   background-position: 10px center;
   background-repeat: no-repeat;
 }
@@ -326,7 +326,7 @@ body {
   color: white;
   font-weight: 500;
   border-radius: 30px;
-  padding: 5px 14px  
+  padding: 5px 14px
 }
 
 .mid-border {
@@ -370,7 +370,7 @@ body {
 }
 
 .move-item.move-done .w600{
-  background-image: url(imgs/ok.png);
+  background-image: url(ok.png);
   background-position: right center;
   background-repeat: no-repeat;
 }
