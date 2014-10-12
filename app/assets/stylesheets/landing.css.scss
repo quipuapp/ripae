@@ -1,0 +1,55 @@
+body {
+  background-image: url(ld-bg.jpg);
+  background-size: 100%;
+}
+
+.ld-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-top: 40px;
+}
+
+.intro-text {
+  width: 400px;
+  color: #304716;
+  margin: 40px 0;
+}
+.intro-text h1{
+  font-weight: 700;
+  font-size: 30px;
+  margin-bottom: 20px
+}
+.intro-text p{
+  font-size: 16px;
+  line-height: 1.6;
+  margin-top: 0;
+  float: left;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.ld-btn {
+  float: left;
+  display: block;
+  background-color: #E4F0D6;
+  font-weight: 700;
+  font-size: 18px;
+  padding: 15px 20px;
+  color: inherit;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  margin-top: 30px;
+  background-position: center left;
+  letter-spacing: 1px
+}
+.ld-btn:hover {
+  background-color: #304716;
+  color: #E4F0D6;
+  text-decoration: none;
+  background-image: url(arr.png);
+  background-repeat: no-repeat;
+  background-position: center right 10px;
+  padding-right: 45px;
+}
