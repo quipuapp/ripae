@@ -27,6 +27,8 @@ class BankEntry < ActiveRecord::Base
   end
 
   def assign_to_invoice!(invoice)
+    return if matched? || invoice.matched?
+
     self.invoice = invoice
     save
   end

@@ -6,6 +6,10 @@ class Invoice < ActiveRecord::Base
 
   USER_NAME = "Rust Cohle"
 
+  def matched?
+    bank_entry.present?
+  end
+
   class << self
     def fake_invoices(prices, range)
       3.times do

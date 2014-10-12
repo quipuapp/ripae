@@ -18,7 +18,7 @@
     - if @featured_bank_entry.matched?
       h3= (@featured_bank_entry.amount > 0) ? 'Tu factura emitida asignada' : 'Tu factura de gasto asignada'
       .move-matches-list
-        = render 'invoice', invoice: @current_matched_invoice
+        = render 'invoice', invoice: @current_matched_invoice, allow_matching: false
     - else
       h3= (@featured_bank_entry.amount > 0) ? 'Tus facturas emitidas' : 'Tus facturas de gastos'
       .move-match-options
@@ -28,4 +28,4 @@
             input.form-control.invoice-filter placeholder="Buscar" type="text"
       .move-matches-list
         - @related_invoices.each do |invoice|
-          = render 'invoice', invoice: invoice
+          = render 'invoice', invoice: invoice, allow_matching: true

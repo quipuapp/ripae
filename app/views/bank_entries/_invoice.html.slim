@@ -1,12 +1,9 @@
 .move-match-item
   .move-match
-    .col-md-6
-      span.match-title Cliente:
-      p= invoice.contact_name
-      span.match-title Concepto:
-      p= invoice.concept
-    .col-md-6
-      span.match-title Fecha:
-      p= invoice.issue_date
-      span.match-title Cantidad:
-      p= number_to_currency(invoice.total_amount)
+    - if allow_matching
+      - matching_invoice_url = { bank_account_id: @current_bank_account.id, selected_bank_entry_id: @featured_bank_entry.id,
+        filter: @current_filter, matched_invoice_id: invoice.id }
+      = link_to matching_invoice_url do
+        = render 'invoice_information', invoice: invoice
+    - else
+      = render 'invoice_information', invoice: invoice
