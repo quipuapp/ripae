@@ -213,6 +213,7 @@ body {
 .plus-minus-all a {
   padding-left: 14px;
 }
+.plus-minus-all a:hover,
 .plus-minus-all a.active {
   background: #555;
   color: white;
@@ -380,6 +381,12 @@ body {
 }
 .undone a {
   padding-left: 14px;
+}
+
+.undone a:hover,
+.undone a.active{
+  background: #555;
+  color: white;
 }
 
 .cc {
