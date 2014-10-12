@@ -2,6 +2,10 @@ require 'roo'
 
 desc "sync bank entries from BancSabadell API"
 
+def recover_amount(amount)
+  amount.gsub('.', '').gsub(',', '.').to_f
+end
+
 task :sync_with_api, [:token] => [:environment] do |t, args|
   # Clean state
   Rake::Task['clean'].invoke
@@ -25,8 +29,8 @@ task :sync_with_api, [:token] => [:environment] do |t, args|
           bank_account: bank_account,
           bank_date: account_transaction.operation_date,
           concept: account_transaction.concept.capitalize,
-          amount: account_transaction.amount.to_f,
-          account_amount: account_transaction.accumulated_amount.to_f,
+          amount: recover_amount(account_transaction.amount),
+          account_amount: recover_amount(account_transaction.accumulated_amount),
           order_number: account_transaction.order_number
         )
       end
