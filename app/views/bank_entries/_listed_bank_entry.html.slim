@@ -1,10 +1,10 @@
 - clazz = 'list-group-item move-item'
 - clazz += (bank_entry.amount > 0) ? ' move-plus' : ' move-minus'
+- clazz += ' move-done' if bank_entry.matched?
 - if @featured_bank_entry == bank_entry
   - clazz += ' move-open'
 - else
   - clazz += ' move-opened' if bank_entry.read?
-  - clazz += ' move-done' if bank_entry.matched?
 li class=clazz
   - bank_entry_url = { bank_account_id: @current_bank_account.id, selected_bank_entry_id: bank_entry.id, filter: @current_filter }
   = link_to bank_entry_url do
